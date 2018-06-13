@@ -13,6 +13,15 @@ project.ext {
 
 repositories {
 	mavenCentral()
+	maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+	maven { url "https://dl.bintray.com/kotlin/ktor" }
+	maven {
+		url "https://jitpack.io"
+		if(System.getenv("JITPACK_TOKEN") == null) {
+			System.err.println("JITPACK_TOKEN was null. Only public repositories will be accessible.")
+		}
+		credentials { username System.getenv("JITPACK_TOKEN") ?: "" }
+	}
 }
 
 dependencies {
@@ -27,6 +36,9 @@ dependencies {
 
 	// Khttp
 	compile 'com.github.jkcclemens:khttp:94ddc375f7'
+
+	// Proto
+	compile 'com.google.transit:gtfs-realtime-bindings:0.0.4'
 }
 
 kotlin {

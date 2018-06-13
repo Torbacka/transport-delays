@@ -1,5 +1,18 @@
 package se.taco.transport.delay
 
-fun main(args: Array<String>) {
+import kotlinx.coroutines.experimental.launch
+import se.taco.transport.delay.gtfs.GtfsService
+import java.util.*
+import kotlin.concurrent.schedule
 
+fun main(args: Array<String>) {
+    Timer().schedule(1000, 15000) {
+        launch {
+            GtfsService().getTripUpdate("sl")
+        }
+    }
 }
+
+
+fun getEnv(e: String, default: String? = null): String = System.getenv()[e] ?: default
+?: throw RuntimeException("Missing environment variable $e and no default value is given.")

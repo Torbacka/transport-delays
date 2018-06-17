@@ -8,7 +8,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'kotlin'
 
 project.ext {
-	kotlin_version = "1.2.41"
+	kotlin_version = "1.2.+"
 	ktor_version = "0.9.1"
 }
 
@@ -27,24 +27,26 @@ repositories {
 
 dependencies {
 	// Kotlin
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-	compile 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.22.5'
-	compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.22.5'
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5'
 
 	// Logging
-	compile 'io.github.microutils:kotlin-logging:1.4.9'
-	compile 'ch.qos.logback:logback-core:1.2.3'
+	implementation 'io.github.microutils:kotlin-logging:1.4.9'
+	implementation 'ch.qos.logback:logback-core:1.2.3'
 
 	// Khttp
-	compile 'com.github.jkcclemens:khttp:94ddc375f7'
+	implementation 'com.github.jkcclemens:khttp:94ddc375f7'
 
 	// Proto
-	compile 'com.google.transit:gtfs-realtime-bindings:0.0.4'
+	implementation 'com.google.transit:gtfs-realtime-bindings:0.0.4'
 
+
+	implementation group: 'io.lettuce', name: 'lettuce-core', version: '5.0.4.RELEASE'
 	// Ktor
-	compile "io.ktor:ktor-server-core:$ktor_version"
-	compile "io.ktor:ktor-server-netty:$ktor_version"
-	testCompile "io.ktor:ktor-server-test-host:$ktor_version"
+	implementation "io.ktor:ktor-server-core:$ktor_version"
+	implementation "io.ktor:ktor-server-netty:$ktor_version"
+	testimplementation "io.ktor:ktor-server-test-host:$ktor_version"
 }
 
 kotlin {

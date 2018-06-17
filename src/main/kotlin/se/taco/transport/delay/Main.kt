@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
 private fun startServiceAlerts() {
     Timer().schedule(1000, 15000) {
         launch {
-            GtfsService().cacheServiceAlerts("sl")
+            GtfsService().cacheServiceAlerts()
         }
     }
 }
@@ -23,7 +23,7 @@ private fun startServiceAlerts() {
 private fun startTripUpdate() {
     Timer().schedule(1000, 15000) {
         launch {
-            GtfsService().cacheTripUpdate("sl")
+            GtfsService().cacheTripUpdate()
         }
     }
 }

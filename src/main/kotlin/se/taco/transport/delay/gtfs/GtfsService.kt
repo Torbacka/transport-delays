@@ -1,5 +1,6 @@
 package se.taco.transport.delay.gtfs
 
+import com.google.transit.realtime.GtfsRealtime
 import mu.KotlinLogging
 import se.taco.transport.delay.gtfs.cache.Cache
 import se.taco.transport.delay.gtfs.cache.GtfsCache
@@ -8,21 +9,22 @@ private val logger = KotlinLogging.logger { "GtfsService" }
 
 
 class GtfsService(
+        private val operator: String = "sl",
         private val storage: Cache = GtfsCache.create()
 ) {
 
-    suspend fun retrieve() {
-
+    suspend fun retrieve(messageType: MessageType): GtfsRealtime.FeedMessage {
+        return storage.retrieve(messageType, operator)
     }
 
-    suspend fun cacheServiceAlerts(operator: String) {
+    suspend fun cacheServiceAlerts() {
         val content = GtfsProxy.sendRequest("ServiceAlerts", operator)
-        storage.cache(MessageType.ALERT, content)
+        storage.cache(MessageType.ALERT, operator, content)
     }
 
-    suspend fun cacheTripUpdate(operator: String) {
+    suspend fun cacheTripUpdate() {
         val content = GtfsProxy.sendRequest("TripUpdates", operator)
-        storage.cache(MessageType.TRIP, content)
+        storage.cache(MessageType.TRIP, operator, content)
     }
 }
 

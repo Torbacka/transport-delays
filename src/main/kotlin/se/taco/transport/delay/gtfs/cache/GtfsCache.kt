@@ -16,12 +16,12 @@ private const val REALTIME_KEY = "transport-delays"
 
 class GtfsCache private constructor(private val redisCommands: RedisAsyncCommands<String, ByteArray>) : Cache {
 
-    override suspend fun cache(messageType: MessageType, byteArray: ByteArray) {
-        redisCommands.hset(REALTIME_KEY, messageType.key, byteArray).await()
+    override suspend fun cache(messageType: MessageType, operator: String,  byteArray: ByteArray) {
+        redisCommands.hset("$operator-$REALTIME_KEY", messageType.key, byteArray).await()
     }
 
-    override suspend fun retrieve(messageType: MessageType): GtfsRealtime.FeedMessage {
-        val byteArray = redisCommands.hget(REALTIME_KEY, messageType.key).await()
+    override suspend fun retrieve(messageType: MessageType, operator: String): GtfsRealtime.FeedMessage {
+        val byteArray = redisCommands.hget("$operator-$REALTIME_KEY", messageType.key).await()
         return GtfsRealtime.FeedMessage.parseFrom(byteArray)
 
     }

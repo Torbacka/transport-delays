@@ -9,13 +9,13 @@ import kotlin.concurrent.schedule
 fun main(args: Array<String>) {
     startTripUpdate()
     startServiceAlerts()
-    DelayController.server(50001).start()
+    DelayController().server(50001).start()
 }
 
 private fun startServiceAlerts() {
     Timer().schedule(1000, 15000) {
         launch {
-            GtfsService().getServiceAlerts("sl")
+            GtfsService().cacheServiceAlerts("sl")
         }
     }
 }
@@ -23,7 +23,7 @@ private fun startServiceAlerts() {
 private fun startTripUpdate() {
     Timer().schedule(1000, 15000) {
         launch {
-            GtfsService().getTripUpdate("sl")
+            GtfsService().cacheTripUpdate("sl")
         }
     }
 }

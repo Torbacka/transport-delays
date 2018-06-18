@@ -1,7 +1,7 @@
 package se.taco.transport.delay
 
 import kotlinx.coroutines.experimental.launch
-import se.taco.transport.delay.controller.DelayController
+import se.taco.transport.delay.controller.Controller
 import se.taco.transport.delay.gtfs.GtfsService
 import java.util.*
 import kotlin.concurrent.schedule
@@ -9,11 +9,11 @@ import kotlin.concurrent.schedule
 fun main(args: Array<String>) {
     startTripUpdate()
     startServiceAlerts()
-    DelayController().server(50001).start()
+    Controller().server(50001).start()
 }
 
 private fun startServiceAlerts() {
-    Timer().schedule(1000, 15000) {
+    Timer().schedule(300, 10000) {
         launch {
             GtfsService().cacheServiceAlerts()
         }
@@ -21,7 +21,7 @@ private fun startServiceAlerts() {
 }
 
 private fun startTripUpdate() {
-    Timer().schedule(1000, 15000) {
+    Timer().schedule(300, 10000) {
         launch {
             GtfsService().cacheTripUpdate()
         }

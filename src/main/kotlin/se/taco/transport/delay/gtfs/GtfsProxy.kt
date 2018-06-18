@@ -29,7 +29,7 @@ object GtfsProxy {
                 timeout = 45.0
         )
         val response = requestResult.await()
-        logger.info { "Payload from gtfs is: ${response.content.size}" }
+        logger.info { "Response from gtfs-RT ($endpoint) size: ${response.content.size}" }
         if (response.statusCode !in ACCEPTED_RANGE) {
             logger.error {
                 "Error response from , url: $GTFS_URL status code: ${response.statusCode}}."

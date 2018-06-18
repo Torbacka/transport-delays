@@ -18,7 +18,7 @@ repositories {
 	maven { url "https://dl.bintray.com/kotlin/ktor" }
 	maven {
 		url "https://jitpack.io"
-		if(System.getenv("JITPACK_TOKEN") == null) {
+		if (System.getenv("JITPACK_TOKEN") == null) {
 			System.err.println("JITPACK_TOKEN was null. Only public repositories will be accessible.")
 		}
 		credentials { username System.getenv("JITPACK_TOKEN") ?: "" }
@@ -33,20 +33,22 @@ dependencies {
 
 	// Logging
 	implementation 'io.github.microutils:kotlin-logging:1.4.9'
-	implementation 'ch.qos.logback:logback-core:1.2.3'
+	runtime 'ch.qos.logback:logback-classic:1.2.3'
 
 	// Khttp
 	implementation 'com.github.jkcclemens:khttp:94ddc375f7'
 
 	// Proto
 	implementation 'com.google.transit:gtfs-realtime-bindings:0.0.4'
+	compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
 
 
-	implementation group: 'io.lettuce', name: 'lettuce-core', version: '5.0.4.RELEASE'
+
+			implementation 'io.lettuce:lettuce-core:5.0.4.RELEASE'
 	// Ktor
 	implementation "io.ktor:ktor-server-core:$ktor_version"
 	implementation "io.ktor:ktor-server-netty:$ktor_version"
-	testimplementation "io.ktor:ktor-server-test-host:$ktor_version"
+	testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }
 
 kotlin {

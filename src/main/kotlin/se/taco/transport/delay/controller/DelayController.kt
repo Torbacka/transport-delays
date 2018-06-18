@@ -1,5 +1,6 @@
 package se.taco.transport.delay.controller
 
+import com.googlecode.protobuf.format.JsonFormat
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -24,7 +25,7 @@ class DelayController(
             route("/delays") {
                 get {
                     val feedMessage = gtfsService.retrieve(MessageType.TRIP)
-                    call.respond(HttpStatusCode.OK, feedMessage)
+                    call.respond(HttpStatusCode.OK,  JsonFormat().printToString(feedMessage))
                 }
                 post("/searches") {
                     call.respond(HttpStatusCode.OK, """{ "test": "ok" }""")
